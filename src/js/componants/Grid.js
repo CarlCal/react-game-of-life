@@ -1,7 +1,6 @@
 
 import React from "react"
 
-
 export default class Body extends React.Component {
 
   handleCellStatus(event) {
@@ -12,10 +11,9 @@ export default class Body extends React.Component {
   }
 
 	render() {
-    const cellAlive = {backgroundColor: 'black',
-                       color: 'white'}
-    const cellDead = {backgroundColor: 'white',
-                      color: 'black'}
+    const cellOld = {backgroundColor: '#14bdac'}
+    const cellYoung = {backgroundColor: '#1cefda'}
+    const cellDead = {backgroundColor: 'white'}
 		return (
       <div>
         <div id="boardContainer" className="container-fluid">
@@ -23,7 +21,15 @@ export default class Body extends React.Component {
             {
               this.props.currentBoardDisplayed.map((column, columnNr) => { 
                 var cells = column.map((cell, rowNr) => {
-                    var cellStyle = (cell == 0) ? cellDead : cellAlive
+
+                    var cellStyle = {}
+                    if (cell === 0) {
+                    	cellStyle = cellDead
+                    } else if (cell === 1.5) {
+                    	cellStyle = cellYoung
+                    } else if (cell === 1) {
+                    	cellStyle = cellOld
+                    }
 
                     return <div key={rowNr}
                                 id={"cell:"+columnNr+"-"+rowNr}
